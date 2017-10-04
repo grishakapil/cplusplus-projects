@@ -1,0 +1,150 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct player {
+    int jerseyNum;
+    int rating;
+};
+
+int main() {
+    vector <player> soccerTeam;
+    int jerseyNum;
+    int playerRating;
+    string userOption;
+    
+    for (int i = 0; i < 5; i++) {
+        cout << "Enter player " << i + 1 << "'s jersey number:" << endl;
+        cin >> jerseyNum;
+        cout << "Enter player " << i + 1 << "'s rating:" << endl;
+        cin >> playerRating;
+        
+        // Declared a variable
+        player teamPlayer;
+        
+        // Store input values into the struct.
+        teamPlayer.jerseyNum = jerseyNum;
+        teamPlayer.rating = playerRating;
+        
+        // Store the player in the vector.
+        soccerTeam.push_back(teamPlayer);
+    }
+    
+    cout << "ROSTER " << endl;
+    for (int j = 0; j < 5; j++) {
+        // Get the player out of the vector
+        player tempPlayer = soccerTeam.at(j);
+        
+        // Output the info
+        cout << "Player " << j + 1 << " -- Jersey number: " << tempPlayer.jerseyNum << ", Rating: " << tempPlayer.rating << endl;
+    }
+    
+    // Display menu
+    do{
+        cout << "MENU" << endl;
+        cout << "a - Add player" << endl;
+        cout << "d - Remove player" << endl;
+        cout << "u - Update player rating" << endl;
+        cout << "r - Output players above a rating" << endl;
+        cout << "o - Output roster" << endl;
+        cout << "q - Quit" << endl;
+        
+        cout << "Choose an option:" << endl;
+        cin >> userOption;
+        
+        //display roster
+        if (userOption == "o"){
+            cout << "ROSTER " << endl;
+            for (unsigned int j = 0; j < soccerTeam.size(); j++) {
+            // Get the player out of the vector
+            player tempPlayer = soccerTeam.at(j);
+            
+            // Output the info
+            cout << "Player " << j + 1 << " -- Jersey number: " << tempPlayer.jerseyNum << ", Rating: " << tempPlayer.rating << endl;
+            }
+        }
+    
+        //add new player
+        if (userOption == "a") {
+            cout << "Enter another player's jersey number:" << endl;
+            cin >> jerseyNum;
+            cout << "Enter another player's rating:" << endl;
+            cin >> playerRating;
+        
+            //declare the new player
+            player newPlayer;
+        
+            //save player attributes
+            newPlayer.jerseyNum = jerseyNum;
+            newPlayer.rating = playerRating;
+        
+            //add the new player to the team
+            soccerTeam.push_back(newPlayer);
+        }
+    
+        //remove player
+        if (userOption == "d") {
+            cout << "Enter a jersey number:" << endl;
+            cin >> jerseyNum;
+        
+            //create player variable to hold current player from the vector.
+            player teamPlayer;
+    
+            for (unsigned int k = 0; k < soccerTeam.size(); k++) {
+            //store player in teamplayer
+            teamPlayer = soccerTeam.at(k);
+            
+                //compare jersey number of player to jersey number entered.
+                // if they match, delete the player using the index.
+                if(teamPlayer.jerseyNum == jerseyNum){
+                    soccerTeam.erase(soccerTeam.begin() + k);
+                        break;
+                }
+            }
+       }
+        
+       //update player rating
+       if (userOption == "u") {
+           cout << "Enter players jeresey number:" << endl;
+           cin >> jerseyNum;
+           cout << "Enter player rating:" << endl;
+           cin >> playerRating;
+           
+           //create a player variable to hold current player from the vector.
+           player teamPlayer;
+           
+           for(unsigned int l = 0; l < soccerTeam.size(); l++){
+              //store player in teamPlayer.
+               teamPlayer = soccerTeam.at(l);
+               
+               //if teamPlayer's jersey number is equal to the jersey number entered by user
+               // set the new player rating for the player. Add the teamPlayer to soccerTeam.
+               if (teamPlayer.jerseyNum == jerseyNum) {
+                   teamPlayer.rating = playerRating;
+                   soccerTeam.at(l) = teamPlayer;
+                   break;
+               }
+           }
+ 
+        }
+        
+        //update player rating
+        if (userOption == "r") {
+            cout << "Enter player rating:" << endl;
+            cin >> playerRating;
+            
+            cout << endl;
+            cout << "ABOVE " << playerRating << endl;
+             for (unsigned int i = 0; i < soccerTeam.size(); i++) {
+                if (soccerTeam.at(i).rating > playerRating){
+                    cout << "Player " << i + 1 << " -- Jersey number: " << soccerTeam.at(i).jerseyNum << ", Rating: " << soccerTeam.at(i).rating << endl;
+            }
+            
+        }
+      }
+    } while (userOption != "q"); //quit when user option is q.
+
+        return 0;
+}
+
+
